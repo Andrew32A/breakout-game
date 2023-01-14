@@ -96,16 +96,12 @@ function drawPaddle() {
 brickColors = ["#DC8564", "#3C408C", "#885CA4"]
 // "#0095DD" default color from tutorial
 function brickColorChanger(column) { 
-    if (column === 0) {
+    if (column === 0 || column === 4) {
         return brickColors[0]
-    } else if (column === 1) {
+    } else if (column === 1 || column === 3) {
         return brickColors[1]
     } else if (column === 2) {
         return brickColors[2]
-    } else if (column === 3) {
-        return brickColors[1]
-    } else if (column === 4) {
-        return brickColors[0]
     }
 }
 
