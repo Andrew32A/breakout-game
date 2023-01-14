@@ -26,7 +26,6 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
-
 const bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
@@ -112,6 +111,15 @@ function drawBricks() {
     }
 }
 
+function drawBackground() {
+    const backgroundGradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+    backgroundGradient.addColorStop(0, "#171e26")
+    backgroundGradient.addColorStop(1, "#3f586b")
+    // fill background
+    ctx.fillStyle = backgroundGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 function collisionDetection() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -137,13 +145,15 @@ function collisionDetection() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height); // previous code from tutorial
+    drawBackground()
     drawBricks();
     drawBall();
     drawPaddle();
     collisionDetection();
     drawScore()
     drawLives();
+
     
     if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
