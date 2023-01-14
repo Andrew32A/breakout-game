@@ -1,23 +1,28 @@
+// grabs elements inside of DOM
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
+// canvas coordinates
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-
 let dx = 2;
 let dy = -2;
 
+// scoreboard and stats
 let score = 0;
 let lives = 3;
 
+// ball properties
 const ballRadius = 10;
 
+// paddle properties
 const paddleHeight = 10;
 const paddleWidth = 75;
 let paddleX = (canvas.width-paddleWidth)/2;
 let rightPressed = false;
 let leftPressed = false;
 
+// brick properties
 const brickRowCount = 3;
 const brickColumnCount = 5;
 const brickWidth = 75;
@@ -26,6 +31,7 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
+// creates and stores bricks in an array
 const bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
@@ -34,10 +40,12 @@ for (let c = 0; c < brickColumnCount; c++) {
     }
 }
 
+// event listeners
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+// mouse behavior
 function mouseMoveHandler(e) {
     const relativeX = e.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
@@ -45,6 +53,7 @@ function mouseMoveHandler(e) {
     }
 }
 
+// keypress behavior
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
@@ -65,18 +74,21 @@ function keyUpHandler(e) {
     }
 }
 
+// displays score
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText(`Score: ${score}`, 8, 20);
 }
 
+// displays lives
 function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
 }
 
+// displays ball
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -85,6 +97,7 @@ function drawBall() {
     ctx.closePath();
 }
 
+// displays paddle
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
@@ -93,6 +106,7 @@ function drawPaddle() {
     ctx.closePath();
 }
 
+// brick colors
 brickColors = ["#DC8564", "#3C408C", "#885CA4"]
 // "#0095DD" default color from tutorial
 function brickColorChanger(column) { 
@@ -105,6 +119,7 @@ function brickColorChanger(column) {
     }
 }
 
+// displays bricks
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -123,6 +138,7 @@ function drawBricks() {
     }
 }
 
+// displays background
 function drawBackground() {
     const backgroundGradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
     backgroundGradient.addColorStop(0, "#171e26")
@@ -132,6 +148,7 @@ function drawBackground() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+// collision detection logic
 function collisionDetection() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
@@ -156,6 +173,7 @@ function collisionDetection() {
     }
 }
 
+// main loop that displays game
 function draw() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height); // previous code from tutorial
     drawBackground()
@@ -165,7 +183,6 @@ function draw() {
     collisionDetection();
     drawScore()
     drawLives();
-
     
     if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -211,4 +228,5 @@ function draw() {
     requestAnimationFrame(draw);
 }
 
+// begins loop
 draw();
