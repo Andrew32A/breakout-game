@@ -1,4 +1,5 @@
-import Sprite from './sprite';
+/* eslint-disable import/extensions */
+import Sprite from './sprite.js';
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -28,7 +29,4 @@ class Ball extends Sprite {
 const ball = new Ball(200, 200, 10);
 ball.render(ctx); // pass the ctx as an argument!
 
-// function draw() {
-//   ball.move();
-//   ball.render(ctx);
-// }
+export default Ball;
