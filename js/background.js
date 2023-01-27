@@ -1,8 +1,7 @@
 class Background {
-  constructor(width, height, color) {
+  constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.color = color;
   }
 
   render(ctx) {

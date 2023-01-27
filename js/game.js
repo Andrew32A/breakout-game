@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable import/extensions */
+
 // import classes
 import Background from './background.js';
 import Ball from './ball.js';
@@ -19,18 +20,13 @@ let dx = 2;
 let dy = -2;
 
 // scoreboard and stats
-let score = 0;
-let lives = 3;
+const score = new Score(8, 20);
+const lives = new Lives(x - 65, 20, 3);
 
-// ball properties
-const ballRadius = 10;
-
-// paddle properties
-const paddleHeight = 10;
-const paddleWidth = 75;
-let paddleX = (canvas.width - paddleWidth) / 2;
-let rightPressed = false;
-let leftPressed = false;
+// background, ball, and paddle object instantiation
+const background = new Background(x, y);
+const ball = new Ball(x / 2, y - 55, dx, dy);
+const paddle = new Paddle((x - 75) / 2, y - 10, 75, 10, 7, 'cyan');
 
 // brick properties
 const brickRowCount = 3;
@@ -40,3 +36,7 @@ const brickHeight = 20;
 const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
+
+// player input variables
+let rightPressed = false;
+let leftPressed = false;
