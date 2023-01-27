@@ -1,9 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable import/extensions */
-import Brick from './brick.js';
-import Ball from './ball.js';
-import Paddle from './paddle.js';
-import Ball from './ball.js';
 
 // grabs elements inside of DOM
 const canvas = document.getElementById('myCanvas');
