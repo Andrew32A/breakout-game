@@ -6,7 +6,7 @@ class Lives {
     this.lives = startingLives;
   }
 
-  draw(ctx) {
+  render(ctx) {
     ctx.font = '16px Ariel';
     ctx.fillStyle = '#0095DD';
     ctx.fillText(`Lives: ${this.lives}`, this.x, this.y);
