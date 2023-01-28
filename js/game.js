@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
 /* eslint-disable no-alert */
 /* eslint-disable import/extensions */
 
@@ -13,30 +15,72 @@ import Score from './score.js';
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
-// canvas coordinates
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-let dx = 2;
-let dy = -2;
+class Game {
+  constructor(canvas, ctx) {
+    this.canvas = canvas;
+    this.ctx = ctx;
 
-// scoreboard and stats
-const score = new Score(8, 20);
-const lives = new Lives(x - 65, 20, 3);
+    // canvas coordinates
+    this.x = canvas.width / 2;
+    this.y = canvas.height - 30;
+    this.dx = 2;
+    this.dy = -2;
 
-// background, ball, and paddle object instantiation
-const background = new Background(x, y);
-const ball = new Ball(x / 2, y - 55, dx, dy);
-const paddle = new Paddle((x - 75) / 2, y - 10, 75, 10, 7, 'cyan');
+    // scoreboard and stats
+    this.score = new Score(8, 20);
+    this.lives = new Lives(canvas.width - 65, 20, 3);
 
-// brick properties
-const brickRowCount = 3;
-const brickColumnCount = 5;
-const brickWidth = 75;
-const brickHeight = 20;
-const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
+    // paddle properties
+    this.paddleHeight = 10;
+    this.paddleWidth = 75;
+    this.paddleX = (canvas.width - this.paddleWidth) / 2;
 
-// player input variables
-let rightPressed = false;
-let leftPressed = false;
+    // background, ball, and paddle object instantiation
+    this.background = new Background(canvas.width, canvas.height);
+    this.ball = new Ball(this.x / 2, this.y - 55, this.dx, this.dy, 10);
+    this.paddle = new Paddle(this.paddleX, canvas.height - this.paddleHeight, this.paddleWidth, this.paddleHeight);
+
+    // brick properties
+    this.brickRowCount = 3;
+    this.brickColumnCount = 5;
+    this.brickWidth = 75;
+    this.brickHeight = 20;
+    this.brickPadding = 10;
+    this.brickOffsetTop = 30;
+    this.brickOffsetLeft = 30;
+
+    // player input variables
+    this.rightPressed = false;
+    this.leftPressed = false;
+  }
+
+  render() {
+    this.background.render(this.ctx);
+    this.ball.render(this.ctx);
+    this.paddle.render(this.ctx);
+
+    this.score.render(this.ctx);
+    this.lives.render(this.ctx);
+  }
+
+  collisionDetection() {
+
+  }
+
+  keyDownHander() {
+
+  }
+
+  keyUpHander() {
+
+  }
+
+  mouseMoveHandler() {
+
+  }
+}
+
+const game = new Game(canvas, ctx);
+
+game.render();
+
