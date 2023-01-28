@@ -49,38 +49,88 @@ class Game {
     this.brickOffsetTop = 30;
     this.brickOffsetLeft = 30;
 
+    this.init();
+    this.render();
+  }
+
+  init() {
+    // bricks
+    this.bricks = new Brick(this.x, this.y, this.width, this.height, 'cyan');
+    this.bricks.init_bricks();
+
     // player input variables
     this.rightPressed = false;
     this.leftPressed = false;
+    document.addEventListener('keydown', this.keyDownHandler);
+    document.addEventListener('keyup', this.keyUpHandler);
+    document.addEventListener('mousemove', this.mouseMoveHandler);
+  }
+
+  collisionDetection() {
+    for (let c = 0; c < this.brickColumnCount; c += 1) {
+      for (let r = 0; r < this.brickRowCount; r += 1) {
+        const b = this.bricks[c][r];
+        if (b.status === 1) {
+          if (this.x > b.x && this.x < b.x + this.brickWidth && this.y > b.y && this.y < b.y + this.brickHeight) {
+            this.dy = -this.dy;
+            b.status = 0;
+            this.score += 1;
+            if (this.score === this.brickRowCount * this.brickColumnCount) {
+              alert('YOU WIN, CONGRATULATIONS!');
+              document.location.reload();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  keyDownHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      this.rightPressed = true;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      this.leftPressed = true;
+    }
+  }
+
+  keyUpHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      this.rightPressed = false;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      this.leftPressed = false;
+    }
+  }
+
+  mouseMoveHandler(e) {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      this.paddleX = relativeX - this.paddleWidth / 2;
+    }
+  }
+
+  paddleLogic() {
+    if (this.rightPressed && this.paddle.paddleX < canvas.width - this.paddle.paddleWidth) {
+      this.paddle.paddleX += 7;
+    } else if (this.leftPressed && this.paddle.paddleX > 0) {
+      this.paddle.paddleX -= 7;
+    }
   }
 
   render() {
     this.background.render(this.ctx);
     this.ball.render(this.ctx);
     this.paddle.render(this.ctx);
+    this.bricks.render(this.ctx);
 
     this.score.render(this.ctx);
     this.lives.render(this.ctx);
-  }
 
-  collisionDetection() {
+    this.paddleLogic();
 
-  }
-
-  keyDownHander() {
-
-  }
-
-  keyUpHander() {
-
-  }
-
-  mouseMoveHandler() {
-
+    requestAnimationFrame(() => {
+      this.render();
+    });
   }
 }
 
 const game = new Game(canvas, ctx);
-
-game.render();
-
