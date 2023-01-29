@@ -67,41 +67,28 @@ class Game {
     this.render();
   }
 
-  init() {
-    // bricks
-    this.bricks = new Brick(this.x, this.y, this.width, this.height, 'cyan');
-    this.bricks.init_bricks();
-
-    // player input variables
-
-    document.addEventListener('keydown', this.keyDownHandler);
-    document.addEventListener('keyup', this.keyUpHandler);
-    document.addEventListener('mousemove', this.mouseMoveHandler);
-  }
-
-  collisionDetection() {
-    for (let c = 0; c < this.brickColumnCount; c += 1) {
-      for (let r = 0; r < this.brickRowCount; r += 1) {
-        const b = this.bricks[c][r];
-        if (b.status === 1) {
-          if (this.x > b.x && this.x < b.x + this.brickWidth && this.y > b.y && this.y < b.y + this.brickHeight) {
-            this.dy = -this.dy;
-            b.status = 0;
-            this.score += 1;
-            if (this.score === this.brickRowCount * this.brickColumnCount) {
-              alert('YOU WIN, CONGRATULATIONS!');
-              document.location.reload();
-            }
-          }
-        }
-      }
-    }
-  }
+  //   collisionDetection() {
+  //     for (let c = 0; c < this.brickColumnCount; c += 1) {
+  //       for (let r = 0; r < this.brickRowCount; r += 1) {
+  //         const b = this.bricks[c][r];
+  //         if (b.status === 1) {
+  //           if (this.x > b.x && this.x < b.x + this.brickWidth && this.y > b.y && this.y < b.y + this.brickHeight) {
+  //             this.dy = -this.dy;
+  //             b.status = 0;
+  //             this.score += 1;
+  //             if (this.score === this.brickRowCount * this.brickColumnCount) {
+  //               alert('YOU WIN, CONGRATULATIONS!');
+  //               document.location.reload();
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
 
   keyDownHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = true;
-      console.log(this.rightPressed)
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
       this.leftPressed = true;
     }
@@ -110,7 +97,6 @@ class Game {
   keyUpHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = false;
-      console.log(this.rightPressed)
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
       this.leftPressed = false;
     }
@@ -119,13 +105,12 @@ class Game {
   mouseMoveHandler(e) {
     const relativeX = e.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
-      this.paddleX = relativeX - this.paddleWidth / 2;
+      this.paddle.moveTo(relativeX - this.paddle.width / 2, this.paddleY);
     }
   }
 
   paddleLogic() {
     if (this.rightPressed && this.paddle.x < this.canvas.width - this.paddle.width) {
-      console.log(this.paddle);
       this.paddle.moveBy(7, 0);
     } else if (this.leftPressed && this.paddle.x > 0) {
       this.paddle.moveBy(-7, 0);
@@ -133,21 +118,35 @@ class Game {
   }
 
   render() {
-    // this.background.render(this.ctx);
-    // this.ball.render(this.ctx);
+    this.background.render(this.ctx);
+    this.ball.render(this.ctx);
     this.paddle.render(this.ctx);
     // this.bricks.render(this.ctx);
 
-    // this.score.render(this.ctx);
-    // this.lives.render(this.ctx);
+    this.score.render(this.ctx);
+    this.lives.render(this.ctx);
 
     this.paddleLogic();
 
-    console.table(this.paddle)
-
-
     requestAnimationFrame(() => {
       this.render();
+    });
+  }
+
+  init() {
+    // bricks
+    this.bricks = new Brick(this.x, this.y, this.width, this.height, 'cyan');
+    this.bricks.init_bricks();
+
+    // player input variables
+    document.addEventListener('keydown', (e) => {
+      this.keyDownHandler(e);
+    });
+    document.addEventListener('keyup', (e) => {
+      this.keyUpHandler(e);
+    });
+    document.addEventListener('mousemove', (e) => {
+      this.mouseMoveHandler(e);
     });
   }
 }
