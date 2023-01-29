@@ -5,9 +5,9 @@
 // import classes
 import Background from './background.js';
 import Ball from './ball.js';
-import Brick from './brick.js';
-import Lives from './lives.js';
+import Bricks from './bricks.js';
 import Paddle from './paddle.js';
+import Lives from './lives.js';
 import Score from './score.js';
 
 // grabs elements inside of DOM
@@ -51,7 +51,7 @@ class Game {
     // ball properties
     this.ball = new Ball(this.x / 2, this.y - 55, this.dx, this.dy, 10);
 
-    // brick properties
+    // brick properties:
     this.brickRowCount = 3;
     this.brickColumnCount = 5;
     this.brickWidth = 75;
@@ -59,6 +59,17 @@ class Game {
     this.brickPadding = 10;
     this.brickOffsetTop = 30;
     this.brickOffsetLeft = 30;
+    this.brickColor = 'cyan';
+    this.bricks = new Bricks(
+      this.brickRowCount,
+      this.brickColumnCount,
+      this.brickWidth,
+      this.brickHeight,
+      this.brickPadding,
+      this.brickOffsetTop,
+      this.brickOffsetLeft,
+      this.brickColor,
+    );
 
     this.rightPressed = false;
     this.leftPressed = false;
@@ -103,7 +114,7 @@ class Game {
   }
 
   mouseMoveHandler(e) {
-    const relativeX = e.clientX - canvas.offsetLeft;
+    const relativeX = e.clientX - this.canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
       this.paddle.moveTo(relativeX - this.paddle.width / 2, this.paddleY);
     }
@@ -121,7 +132,7 @@ class Game {
     this.background.render(this.ctx);
     this.ball.render(this.ctx);
     this.paddle.render(this.ctx);
-    // this.bricks.render(this.ctx);
+    this.bricks.render(this.ctx);
 
     this.score.render(this.ctx);
     this.lives.render(this.ctx);
@@ -135,8 +146,9 @@ class Game {
 
   init() {
     // bricks
-    this.bricks = new Brick(this.x, this.y, this.width, this.height, 'cyan');
     this.bricks.init_bricks();
+
+    console.table(this.bricks)
 
     // player input variables
     document.addEventListener('keydown', (e) => {
