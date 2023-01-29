@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-/* eslint-disable max-len */
 /* eslint-disable no-alert */
 /* eslint-disable import/extensions */
 
@@ -30,15 +29,27 @@ class Game {
     this.score = new Score(8, 20);
     this.lives = new Lives(canvas.width - 65, 20, 3);
 
+    // background
+    this.background = new Background(canvas.width, canvas.height);
+
     // paddle properties
     this.paddleHeight = 10;
     this.paddleWidth = 75;
-    this.paddleX = (canvas.width - this.paddleWidth) / 2;
+    this.paddleSpeed = 7;
+    this.paddleColor = '#0095DD';
+    this.paddleX = (canvas.width - 75) / 2;
+    this.paddleY = (canvas.height - 10);
+    this.paddle = new Paddle(
+      this.paddleX,
+      this.paddleY,
+      this.paddleWidth,
+      this.paddleHeight,
+      this.paddleSpeed,
+      this.paddleColor,
+    );
 
-    // background, ball, and paddle object instantiation
-    this.background = new Background(canvas.width, canvas.height);
+    // ball properties
     this.ball = new Ball(this.x / 2, this.y - 55, this.dx, this.dy, 10);
-    this.paddle = new Paddle(this.paddleX, canvas.height - this.paddleHeight, this.paddleWidth, this.paddleHeight);
 
     // brick properties
     this.brickRowCount = 3;
@@ -48,6 +59,9 @@ class Game {
     this.brickPadding = 10;
     this.brickOffsetTop = 30;
     this.brickOffsetLeft = 30;
+
+    this.rightPressed = false;
+    this.leftPressed = false;
 
     this.init();
     this.render();
@@ -59,8 +73,7 @@ class Game {
     this.bricks.init_bricks();
 
     // player input variables
-    this.rightPressed = false;
-    this.leftPressed = false;
+
     document.addEventListener('keydown', this.keyDownHandler);
     document.addEventListener('keyup', this.keyUpHandler);
     document.addEventListener('mousemove', this.mouseMoveHandler);
@@ -88,6 +101,7 @@ class Game {
   keyDownHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = true;
+      console.log(this.rightPressed)
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
       this.leftPressed = true;
     }
@@ -96,6 +110,7 @@ class Game {
   keyUpHandler(e) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = false;
+      console.log(this.rightPressed)
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
       this.leftPressed = false;
     }
@@ -109,23 +124,27 @@ class Game {
   }
 
   paddleLogic() {
-    if (this.rightPressed && this.paddle.paddleX < canvas.width - this.paddle.paddleWidth) {
-      this.paddle.paddleX += 7;
-    } else if (this.leftPressed && this.paddle.paddleX > 0) {
-      this.paddle.paddleX -= 7;
+    if (this.rightPressed && this.paddle.x < this.canvas.width - this.paddle.width) {
+      console.log(this.paddle);
+      this.paddle.moveBy(7, 0);
+    } else if (this.leftPressed && this.paddle.x > 0) {
+      this.paddle.moveBy(-7, 0);
     }
   }
 
   render() {
-    this.background.render(this.ctx);
-    this.ball.render(this.ctx);
+    // this.background.render(this.ctx);
+    // this.ball.render(this.ctx);
     this.paddle.render(this.ctx);
-    this.bricks.render(this.ctx);
+    // this.bricks.render(this.ctx);
 
-    this.score.render(this.ctx);
-    this.lives.render(this.ctx);
+    // this.score.render(this.ctx);
+    // this.lives.render(this.ctx);
 
     this.paddleLogic();
+
+    console.table(this.paddle)
+
 
     requestAnimationFrame(() => {
       this.render();
