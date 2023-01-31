@@ -15,7 +15,24 @@ const canvas = document.getElementByID('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 class Game {
-  constructor(canvas, ctx) {
+  canvas: any
+  ctx: any
+  x: number
+  y: number
+  dx: number
+  dy: number
+  score: object
+  lives: object
+  background: object
+  paddleHeight: number
+  paddleWidth: number
+  paddleSpeed: any
+  paddleColor: any
+  paddleX: number
+  paddleY: number
+  paddle: object
+  
+  constructor(canvas: any, ctx: any) {
     this.canvas = canvas;
     this.ctx = ctx;
 
