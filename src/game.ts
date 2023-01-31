@@ -21,17 +21,36 @@ class Game {
   y: number
   dx: number
   dy: number
-  score: object
-  lives: object
-  background: object
+
+  score: Score
+  lives: Lives
+  background: Background
+
   paddleHeight: number
   paddleWidth: number
   paddleSpeed: any
   paddleColor: any
   paddleX: number
   paddleY: number
-  paddle: object
-  
+  paddle: Paddle
+
+  ballRadius: number
+  ballColor: string
+  ball: Ball
+
+  brickRowCount: number
+  brickColumnCount: number
+  brickWidth: number
+  brickHeight: number
+  brickPadding: number
+  brickOffsetTop: number
+  brickOffsetLeft: number
+  brickColor: string
+  bricks: Bricks
+
+  rightPressed: boolean
+  leftPressed: boolean
+
   constructor(canvas: any, ctx: any) {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -117,9 +136,9 @@ class Game {
     document.addEventListener('mousemove', (e) => {
       this.mouseMoveHandler(e);
     });
-  }
+  }: any
 
-  keyDownHandler(e) {
+  keyDownHandler(e: any) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = true;
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
@@ -127,7 +146,7 @@ class Game {
     }
   }
 
-  keyUpHandler(e) {
+  keyUpHandler(e: any) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.rightPressed = false;
     } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
@@ -135,7 +154,7 @@ class Game {
     }
   }
 
-  mouseMoveHandler(e) {
+  mouseMoveHandler(e: any) {
     const relativeX = e.clientX - this.canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
       this.paddle.moveTo(relativeX - this.paddle.width / 2, this.paddleY);
