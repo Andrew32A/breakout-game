@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import Brick from './brick.js';
+import Brick from './brick';
 
 class Bricks {
   rows: number

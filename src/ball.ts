@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import Sprite from './sprite.js';
+import Sprite from './sprite';
 
 class Ball extends Sprite {
   radius: number

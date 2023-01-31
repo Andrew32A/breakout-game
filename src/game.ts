@@ -3,16 +3,16 @@
 /* eslint-disable import/extensions */
 
 // import classes
-import Background from './background.js';
-import Ball from './ball.js';
-import Bricks from './bricks.js';
-import Paddle from './paddle.js';
-import Lives from './lives.js';
-import Score from './score.js';
+import Background from './background';
+import Ball from './ball';
+import Bricks from './bricks';
+import Paddle from './paddle';
+import Lives from './lives';
+import Score from './score';
 
 // grabs elements inside of DOM
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+const ctx = (canvas as HTMLCanvasElement).getContext('2d');
 
 class Game {
   canvas: any
