@@ -11,7 +11,7 @@ import Lives from './lives.js';
 import Score from './score.js';
 
 // grabs elements inside of DOM
-const canvas = document.getElementByID('canvas') as HTMLCanvasElement;
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 class Game {
@@ -46,7 +46,7 @@ class Game {
   brickOffsetTop: number
   brickOffsetLeft: number
   brickColor: string
-  bricks: Bricks
+  bricks: any
 
   rightPressed: boolean
   leftPressed: boolean
@@ -127,16 +127,16 @@ class Game {
     this.bricks.init_bricks();
 
     // event listeners
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e: any) => {
       this.keyDownHandler(e);
     });
-    document.addEventListener('keyup', (e) => {
+    document.addEventListener('keyup', (e: any) => {
       this.keyUpHandler(e);
     });
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', (e: any) => {
       this.mouseMoveHandler(e);
     });
-  }: any
+  }
 
   keyDownHandler(e: any) {
     if (e.key === 'Right' || e.key === 'ArrowRight') {

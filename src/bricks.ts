@@ -10,7 +10,7 @@ class Bricks {
   offsetTop: number
   offsetLeft: number
   color: string
-  bricks: object
+  bricks: any
 
   constructor(rows: number, columns: number, width: number, height: number, padding: number, offsetTop: number, offsetLeft: number, color: string) {
     this.rows = rows;

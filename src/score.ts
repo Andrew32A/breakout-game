@@ -2,6 +2,7 @@ class Score {
   x: number
   y: number
   score: number
+  
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
