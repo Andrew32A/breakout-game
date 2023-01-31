@@ -2,7 +2,17 @@
 import Brick from './brick.js';
 
 class Bricks {
-  constructor(rows, columns, width, height, padding, offsetTop, offsetLeft, color) {
+  rows: number
+  columns: number
+  width: number
+  height: number
+  padding: number
+  offsetTop: number
+  offsetLeft: number
+  color: string
+  bricks: object
+
+  constructor(rows: number, columns: number, width: number, height: number, padding: number, offsetTop: number, offsetLeft: number, color: string) {
     this.rows = rows;
     this.columns = columns;
     this.width = width;
@@ -28,7 +38,7 @@ class Bricks {
     }
   }
 
-  render(ctx) {
+  render(ctx: any) {
     for (let c = 0; c < this.columns; c += 1) {
       for (let r = 0; r < this.rows; r += 1) {
         const brick = this.bricks[c][r];
