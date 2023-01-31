@@ -3,12 +3,12 @@
 /* eslint-disable import/extensions */
 
 // import classes
-import Background from '../src/background.js';
-import Ball from '../src/ball.js';
-import Bricks from '../src/bricks.js';
-import Paddle from '../src/paddle.js';
-import Lives from '../src/lives.js';
-import Score from '../src/score.js';
+import Background from './background.js';
+import Ball from './ball.js';
+import Bricks from './bricks.js';
+import Paddle from './paddle.js';
+import Lives from './lives.js';
+import Score from './score.js';
 
 // grabs elements inside of DOM
 const canvas = document.getElementById('myCanvas');
