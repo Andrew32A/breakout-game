@@ -11,8 +11,8 @@ import Lives from './lives';
 import Score from './score';
 
 // grabs elements inside of DOM
-const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 class Game {
   canvas: any
