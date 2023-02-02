@@ -46,7 +46,7 @@ class Game {
   brickOffsetTop: number
   brickOffsetLeft: number
   brickColor: string
-  bricks: any
+  bricks: Bricks
 
   rightPressed: boolean
   leftPressed: boolean
