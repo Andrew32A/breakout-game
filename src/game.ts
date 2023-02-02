@@ -15,8 +15,8 @@ const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 class Game {
-  canvas: any
-  ctx: any
+  canvas: HTMLCanvasElement
+  ctx: CanvasRenderingContext2D
   x: number
   y: number
   dx: number
